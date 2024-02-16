@@ -1,10 +1,9 @@
 import './App.css'
+import FileUploader from './components/FileUploader'
 
 function App() {
-    // TODO: Add a section to upload a file and send it to the backend.
     return (
-        <>
-        </>
+        <FileUploader />
     )
 }
 
