@@ -6,10 +6,6 @@ function FileUploader() {
     const [file, setFile] = useState<File | null>(null)
     const [reponseData, setResponseData] = useState<string | null>(null)
 
-    function handleChange(file: File) {
-        setFile(file)
-    }
-
     function handleSubmit(event: FormEvent<HTMLFormElement>) {
         event.preventDefault()
         if (file != null) {
@@ -28,12 +24,13 @@ function FileUploader() {
             })
         }
     }
+
     return <>
         <h1> Upload File </h1>
         <form onSubmit={handleSubmit}>
             <input type="file" onChange={(event) => {
                 if (event.target.files != null) {
-                    handleChange(event.target.files[0])
+                    setFile(event.target.files[0])
                 }
             }} />
             <div>{(reponseData != null) ? reponseData : ""}</div>
