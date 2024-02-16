@@ -6,7 +6,7 @@ deps:
 	cd frontend/ && npm i
 
 run-backend:
-	python3 api/api.py
+	cd api && python3 api.py
 
 run-frontend:
 	cd frontend && npm run dev
