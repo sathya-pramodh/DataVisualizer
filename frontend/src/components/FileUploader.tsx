@@ -1,10 +1,11 @@
 import { FormEvent, useState } from "react"
 import axios, { AxiosResponse } from "axios"
+import Plots from "./Plots"
 
 // TODO: Style all elements.
 function FileUploader() {
     const [file, setFile] = useState<File | null>(null)
-    const [reponseData, setResponseData] = useState<string | null>(null)
+    const [respSuccess, setRespSuccess] = useState<boolean>(false)
 
     function handleSubmit(event: FormEvent<HTMLFormElement>) {
         event.preventDefault()
@@ -18,23 +19,23 @@ function FileUploader() {
             }
             formData.append('file', file)
             formData.append('fileName', file.name)
-            axios.post(url, formData, config).catch((response: AxiosResponse) => {
-                // TODO: Templated reponseData and setResponseData for now. Still need to decide what to send from the backend.
-                setResponseData(response.data)
+            axios.post(url, formData, config).then((response: AxiosResponse) => {
+                console.log(response.data)
+                setRespSuccess(true)
             })
         }
     }
-
     return <>
         <h1> Upload File </h1>
         <form onSubmit={handleSubmit}>
             <input type="file" onChange={(event) => {
                 if (event.target.files != null) {
                     setFile(event.target.files[0])
+                    setRespSuccess(false)
                 }
             }} />
-            <div>{(reponseData != null) ? reponseData : ""}</div>
             <button type="submit">Upload</button>
+            {respSuccess && <Plots />}
         </form>
     </>
 }
